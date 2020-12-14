@@ -1,0 +1,40 @@
+{
+    "Info":{
+        "name": "Daniel Binoy",
+        "phone-number": "(669)377-5085",
+        "email": "dbinoy15@gmail.com",
+        "github": "https://github.com/binoy-d",
+        "linkedin": "https://linkedin.com/in/binoy-d"
+    },
+    "Skills": {
+        "Software Development":{
+            "Proficient":["Python", "C++","Java", "JavaScript", "React.js", "Bootstrap", "HTML", "CSS", "jQuery", "Processing", "p5.js"],
+            "Familiar" : ["NodeJS", "C#", "Selenium", "Express", "AWS", "GTest", "Web Crawling", "MongoDB", "Heroku", "Unity3D"]
+        },
+        "Other": ["Git/Github", "Agile", "Photoshop", "Linux", "UI/UX Design", "VirtualBox", "Arduino", "3D Printing"]
+    },
+    "Relevant Projects":[
+        {
+            "name":"Portfolio Website",
+            "link":"https://binoy.co",
+            "description":[
+                "Created a responsive personal portfolio website, featuring projects and more about me",
+                "Used React, Bootstrap, HTML, JavaScript, and CSS for dynamic content through custom components",
+                "Features aesthetic interface, light/dark mode, and smooth animations, as improvements from old site"
+            ]
+        },
+        {
+            "name":"Blog App",
+            "link":"https://binoy.co",
+            "description":[
+                "Created full stack blog app where users can read articles, as well as upvote and leave comments",
+                "Hosted on AWS EC2 server with backend written in NodeJS and Express",
+                "Front end written with ReactJS, using MongoDB to store comments and upvotes"
+            ]
+        }
+    ]
+
+
+
+
+}
