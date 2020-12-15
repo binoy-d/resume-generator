@@ -58,6 +58,61 @@
                 " Deployed app using Heroku with NodeJS, Express, and SocketIO for backend"
             ]
         }
+    ],
+    "Experience":[
+        {
+            "company": "Badger Meter",
+            "position": "Software Engineering Intern",
+            "start": "Jan 2021",
+            "end": "Present",
+            "description": [
+                "Producing clean, efficient code based on user stories and integrated software components",
+                "Authoring automated unit, integration, and system tests",
+                "Troubleshooting and debugging existing Python and React code base"
+            ]
+        }, 
+        {
+            "company": "UCI ICS Student Council",
+            "position": "Project Committee Member",
+            "start": "Nov 2020",
+            "end": "Present",
+            "description": [
+                "Working to develop online solutions tailored to aid UCI students to improve student experience",
+                "Rebuilding and redesigning zotistics website from ground up in React"
+            ]
+        },
+        {
+            "company": "Curicular",
+            "position": "Web Design/UX Intern",
+            "start": "Sep 2020",
+            "end": "Dec 2020",
+            "description": [
+                " Managed website interface, pitching and implementing ideas to better design, code, and modify the site",
+                "Created visually appealing site features for user-friendly design and clear navigation",
+                "Streamlined website structure and page layouts, resulting in 4x faster load times"
+            ]
+        },
+        {
+            "company": "KTBYTE",
+            "position": "Computer Science Instructor",
+            "start": "Apr 2020",
+            "end": "Present",
+            "description": [
+                "Taught computer science concepts at various levels in Processing and Java to 60+ students",
+                "Communicated with operations staff on optimizing problem sets to emphasize learning and retention",
+                "Developed automatically graded curricula, problem sets, and lesson plans"
+            ]
+        },
+        {
+            "company": "ST MESA Club",
+            "position": "Vice President",
+            "start": "Aug 2017",
+            "end": "May 2019",
+            "description": [
+                "Grew MESA(Mathematics Engineering Science Achievement) by over 40% from 50+ to 80+ members",
+                "Lead club to best year to date, winning over 72% of all prizes, with 90% of members winning"
+            ]
+        }
     ]
 
 

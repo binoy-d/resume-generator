@@ -109,6 +109,8 @@ def projects(c:canvas.Canvas, info:dict, top:float):
 
 
 
+
+
 '''
 using info from info dict, assembles and writes pdf
 '''
