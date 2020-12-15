@@ -14,7 +14,7 @@
         },
         "Other": ["Git/Github", "Agile", "Photoshop", "Linux", "UI/UX Design", "VirtualBox", "Arduino", "3D Printing"]
     },
-    "Relevant Projects":[
+    "Projects":[
         {
             "name":"Portfolio Website",
             "link":"https://binoy.co",

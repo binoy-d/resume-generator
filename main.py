@@ -22,8 +22,9 @@ def loadInfo(filename:str)->dict:
 
 '''
 adds header with name, links, and contact info
+returns bottom
 '''
-def header(c:canvas.Canvas, info:dict):
+def header(c:canvas.Canvas, info:dict)->float:
     c.setFont("Helvetica-Bold", 20)
     #name
     c.drawCentredString(WIDTH/2,HEIGHT-inch, info["Info"]["name"])
@@ -31,19 +32,20 @@ def header(c:canvas.Canvas, info:dict):
     #smaller font
     c.setFont("Helvetica", 10)
     #linkedin - left
-    c.drawString(MARGIN, HEIGHT-inch/1.5, info["Info"]["linkedin"])
+    c.drawString(MARGIN, HEIGHT-MARGIN, info["Info"]["linkedin"])
     #github - right
     c.drawRightString(WIDTH-MARGIN, HEIGHT-MARGIN, info["Info"]["github"])
     #contact info - center below name
     contact = info["Info"]["email"]+" | "+info["Info"]["phone-number"]+" | "+info["Info"]["site"]
     c.drawCentredString(WIDTH/2,HEIGHT-(inch*1.25),contact)
     #canvas.drawRightString(x, y, text), drawString(x, y, text)
-    
+    return HEIGHT-(inch*1.25)
 
 '''
 add skills section, starting from top
+returns bottom
 '''
-def skills(c:canvas.Canvas, info:dict, top:float):
+def skills(c:canvas.Canvas, info:dict, top:float)->float:
     c.setFont("Helvetica-Bold", 12)
     #header - left - red - line below
     r, g, b = ACCENT
@@ -77,6 +79,27 @@ def skills(c:canvas.Canvas, info:dict, top:float):
     skills = ", ".join(info["Skills"]["Other"])
     c.drawRightString(WIDTH-MARGIN, top-inch/1.2, skills)
 
+    return top-inch/1.1 #the new bottom
+
+def projects(c:canvas.Canvas, info:dict, top:float):
+    #header - left - red - line below
+    c.setFont("Helvetica-Bold", 12)
+    r, g, b = ACCENT
+    c.setFillColorRGB(r, g, b)
+    c.setStrokeColorRGB(r, g, b)
+    c.drawString(MARGIN, top-MARGIN/4, "Projects")
+    c.line(MARGIN,top-inch/6,WIDTH-MARGIN,top-inch/6)
+    
+    for project in info["Projects"]:
+        #software development - black - bold
+        c.setFillColorRGB(0, 0, 0)
+        c.setFont("Helvetica-Bold", 11)
+        c.drawString(MARGIN+inch/4, top-inch/3, project["name"])
+        top-=inch/3
+
+    return 0
+
+
 
 '''
 using info from info dict, assembles and writes pdf
@@ -84,9 +107,9 @@ using info from info dict, assembles and writes pdf
 def create_pdf(filename:str, info:dict)->None:
     
     c = canvas.Canvas(filename, pagesize = A4)
-    header(c, info)    
-    skills(c, info, HEIGHT-(inch*1.25))
-
+    bottom = header(c, info)    
+    bottom = skills(c, info, bottom)
+    bottom = projects(c, info, bottom)
     c.showPage()
     c.save()
 
