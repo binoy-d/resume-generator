@@ -1,10 +1,11 @@
 {
     "Info":{
         "name": "Daniel Binoy",
-        "phone-number": "(669)377-5085",
+        "phone-number": "(669) 377-5085",
+        "site": "www.binoy.co",
         "email": "dbinoy15@gmail.com",
-        "github": "https://github.com/binoy-d",
-        "linkedin": "https://linkedin.com/in/binoy-d"
+        "github": "github.com/binoy-d",
+        "linkedin": "linkedin.com/in/binoy-d"
     },
     "Skills": {
         "Software Development":{
