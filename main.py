@@ -7,24 +7,23 @@ from reportlab.platypus import SimpleDocTemplate
 import json
 
 
-LIGHT = True
-DARK = False
-
-MODE = LIGHT
-
-
-RED = (196, 34, 51)
-WHITE = (220, 220, 220)
-BLACK = (12, 12, 12)
-
-
-#variables to mess with
-ACCENT = RED
-BACK = WHITE if MODE else BLACK
-TEXT = BLACK if MODE else WHITE
-
 WIDTH, HEIGHT = letter
 MARGIN = inch/2
+
+'''
+sets the theme lol
+'''
+def getTheme(info:dict) -> dict:
+    theme = info["Theme"]
+    if theme["mode"] == "light":
+        back = [int(i) for i in theme["light"].split(",")]
+        front = [int(i) for i in theme["dark"].split(",")]
+    else:
+        back = [int(i) for i in theme["dark"].split(",")]
+        front = [int(i) for i in theme["light"].split(",")]
+    accent = [int(i) for i in theme["accent"].split(",")]
+    return {"back":tuple(back), "front":tuple(front), "accent":tuple(accent)}
+
 
 '''
 loads info from json file
@@ -52,10 +51,10 @@ def setColor(c:canvas.Canvas, color:tuple):
 adds header with name, links, and contact info
 returns bottom
 '''
-def header(c:canvas.Canvas, info:dict, top=HEIGHT-MARGIN)->float: 
+def header(c:canvas.Canvas, info:dict,theme:dict, top=HEIGHT-MARGIN )->float: 
     #smaller font, italic, red
     c.setFont("Helvetica-Oblique", 10)
-    setColor(c, ACCENT)
+    setColor(c, theme['accent'])
 
     #linkedin - left
     c.drawString(MARGIN, top, info["Info"]["linkedin"])
@@ -66,11 +65,11 @@ def header(c:canvas.Canvas, info:dict, top=HEIGHT-MARGIN)->float:
     c.linkURL("https://"+info["Info"]["github"],(WIDTH-MARGIN-c.stringWidth(info["Info"]["github"])-3, top,WIDTH-MARGIN,top+10))
     
     #name
-    setColor(c, TEXT)
+    setColor(c, theme['front'])
     top-=inch/3
     c.setFont("Helvetica-Bold", 20)
     c.drawRightString(WIDTH/2-2,top, info["Info"]["name"][0]) #first
-    setColor(c, ACCENT)
+    setColor(c, theme['accent'])
     c.drawString(WIDTH/2+2, top, info["Info"]["name"][1]) #last
 
     x1 = WIDTH/2 - c.stringWidth(info["Info"]["name"][0])
@@ -79,7 +78,7 @@ def header(c:canvas.Canvas, info:dict, top=HEIGHT-MARGIN)->float:
 
     #contact info - center below name
     top-=20 #size of name
-    setColor(c, TEXT)
+    setColor(c, theme['front'])
     c.setFont("Helvetica", 10)
     contact = info["Info"]["email"]+" | "+info["Info"]["phone-number"]+" | "+info["Info"]["site"]
     c.drawCentredString(WIDTH/2,top,contact)
@@ -94,17 +93,17 @@ def header(c:canvas.Canvas, info:dict, top=HEIGHT-MARGIN)->float:
     x2 = x1+c.stringWidth(info["Info"]["email"])
     c.linkURL("mailto:"+info["Info"]["email"],(x1,top,x2,top+10))
 
-    #canvas.drawRightString(x, y, text), drawString(x, y, text)
+    #canvas.drawRightString(x, y, theme['front']), drawString(x, y, theme['front'])
     return top-inch/20
 
 '''
 add skills section, starting from top
 returns bottom
 '''
-def skills(c:canvas.Canvas, info:dict, top:float)->float:
+def skills(c:canvas.Canvas, info:dict, top:float, theme:dict)->float:
     #header - left - red - line below
     c.setFont("Helvetica-Bold", 12)
-    setColor(c, ACCENT)
+    setColor(c, theme['accent'])
     
     top-=MARGIN/4
     c.drawString(MARGIN, top, "Skills")
@@ -113,8 +112,7 @@ def skills(c:canvas.Canvas, info:dict, top:float)->float:
     
     #software development - black - bold
     top-=inch/6
-    setColor(c, TEXT)
-    setColor(c, TEXT)
+    setColor(c, theme['front'])
     c.setFont("Helvetica-Bold", 11)
     c.drawString(MARGIN+inch/4, top, "Software Development")
 
@@ -148,11 +146,11 @@ def skills(c:canvas.Canvas, info:dict, top:float)->float:
 adds projects with name, descripton, link
 returns new bottom
 '''
-def projects(c:canvas.Canvas, info:dict, top:float):
+def projects(c:canvas.Canvas, info:dict, top:float, theme:dict):
     #header - left - red - line below
     c.setFont("Helvetica-Bold", 12)
 
-    setColor(c, ACCENT)
+    setColor(c, theme['accent'])
     top-=MARGIN/4
     c.drawString(MARGIN, top, "Projects")
     top-=inch/12
@@ -162,13 +160,13 @@ def projects(c:canvas.Canvas, info:dict, top:float):
     top-=inch/6
     for project in info["Projects"]:
         #title
-        setColor(c, TEXT)
+        setColor(c, theme['front'])
         c.setFont("Helvetica-Bold", 10)
         c.drawString(MARGIN+inch/4, top, project["name"])
           
         #link
         c.setFont("Helvetica-Oblique", 9)
-        setColor(c, ACCENT)
+        setColor(c, theme['accent'])
         c.drawRightString(WIDTH-MARGIN, top, project["link"])
         x1 = WIDTH-MARGIN-c.stringWidth(project["link"])
         x2 = WIDTH-MARGIN
@@ -178,7 +176,7 @@ def projects(c:canvas.Canvas, info:dict, top:float):
 
         #description
         c.setFont("Helvetica", 9)
-        setColor(c, TEXT)
+        setColor(c, theme['front'])
         for line in project["description"]:
             top-=inch/6
             c.drawString(MARGIN+inch/3, top,"• "+line)
@@ -189,10 +187,10 @@ def projects(c:canvas.Canvas, info:dict, top:float):
 adds experience with position, company, descripton, dates
 returns new bottom
 '''
-def experience(c:canvas.Canvas, info:dict, top:float):
+def experience(c:canvas.Canvas, info:dict, top:float, theme:dict):
     #header - left - red - line below
     c.setFont("Helvetica-Bold", 12)
-    setColor(c, ACCENT)
+    setColor(c, theme['accent'])
     top-=MARGIN/4
     c.drawString(MARGIN, top, "Experience")
     top-=inch/12
@@ -202,7 +200,7 @@ def experience(c:canvas.Canvas, info:dict, top:float):
     top-=inch/6
     for xp in info["Experience"]:
         #position
-        setColor(c, TEXT)
+        setColor(c, theme['front'])
         c.setFont("Helvetica-Bold", 10)
         c.drawString(MARGIN+inch/4, top, xp["position"]+" ")
 
@@ -222,7 +220,7 @@ def experience(c:canvas.Canvas, info:dict, top:float):
         
         
         #description
-        setColor(c, TEXT)
+        setColor(c, theme['front'])
         c.setFont("Helvetica", 9)
         for line in xp["description"]:
             top-=inch/6
@@ -236,10 +234,10 @@ def experience(c:canvas.Canvas, info:dict, top:float):
 adds education with university, major, gpa, expected grad 
 returns new bottom
 '''
-def education(c:canvas.Canvas, info:dict, top:float):
+def education(c:canvas.Canvas, info:dict, top:float, theme:dict):
     #header - left - red - line below
     c.setFont("Helvetica-Bold", 12)
-    setColor(c, ACCENT)
+    setColor(c, theme['accent'])
     top-=MARGIN/4
     c.drawString(MARGIN, top, "Education")
     top-=inch/12
@@ -247,7 +245,7 @@ def education(c:canvas.Canvas, info:dict, top:float):
     
     #university name - bold, black
     top-=inch/6
-    setColor(c, TEXT)
+    setColor(c, theme['front'])
     c.setFont("Helvetica-Bold", 10)
     c.drawString(MARGIN+inch/4, top, info["Education"]["school"])
     
@@ -268,10 +266,10 @@ def education(c:canvas.Canvas, info:dict, top:float):
 adds certifications with certifier, list of certs 
 returns new bottom
 '''
-def certifications(c:canvas.Canvas, info:dict, top:float):
+def certifications(c:canvas.Canvas, info:dict, top:float, theme:dict):
     #header - left - red - line below
     c.setFont("Helvetica-Bold", 12)
-    setColor(c, ACCENT)
+    setColor(c, theme['accent'])
     top-=MARGIN/4
     c.drawString(MARGIN, top, "Certifications")
     top-=inch/12
@@ -279,7 +277,7 @@ def certifications(c:canvas.Canvas, info:dict, top:float):
     
     
     
-    setColor(c, TEXT)
+    setColor(c, theme['front'])
     for cert in info["Certifications"]:
         #certifier - bold, black
         top-=inch/6
@@ -295,8 +293,8 @@ def certifications(c:canvas.Canvas, info:dict, top:float):
 
 
 
-def background(c):
-    setColor(c, BACK)
+def background(c, theme):
+    setColor(c, theme['back'])
     c.rect(-20,-20,WIDTH+40,HEIGHT+40,fill=1)
 
 
@@ -304,16 +302,16 @@ def background(c):
 '''
 using info from info dict, assembles and writes pdf
 '''
-def create_pdf(filename:str, info:dict)->None:
+def create_pdf(filename:str, info:dict, theme:dict)->None:
     
     c = canvas.Canvas(filename, pagesize = letter)
-    background(c)
-    bottom = header(c, info)    
-    bottom = skills(c, info, bottom)
-    bottom = experience(c, info, bottom)
-    bottom = education(c, info, bottom)
-    bottom = projects(c, info, bottom)
-    bottom = certifications(c, info, bottom)
+    background(c, theme)
+    bottom = header(c, info, theme)    
+    bottom = skills(c, info, bottom, theme)
+    bottom = experience(c, info, bottom, theme)
+    bottom = education(c, info, bottom, theme)
+    bottom = projects(c, info, bottom, theme)
+    bottom = certifications(c, info, bottom, theme)
     print(bottom)
     c.showPage()
     c.save()
@@ -323,8 +321,9 @@ def create_pdf(filename:str, info:dict)->None:
 
 def main():
     info = loadInfo("./info.json")
+    theme = getTheme(info)
     print("loaded info for ", info["Info"]["name"])
-    create_pdf("./resume.pdf", info)
+    create_pdf("./resume.pdf", info, theme)
 
 if __name__ == '__main__':
     main()

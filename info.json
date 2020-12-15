@@ -137,7 +137,13 @@
                 "CSS Skill Test"
             ]
         }
-    ]
+    ],
+    "Theme":{
+        "light":"220,220,220",
+        "dark":"12,12,12",
+        "accent":"196,34,51",
+        "mode": "light"
+    }
 
 
 
