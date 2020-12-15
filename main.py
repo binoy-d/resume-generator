@@ -4,6 +4,10 @@ from reportlab.lib.pagesizes import A4
 
 WIDTH, HEIGHT = A4
 MARGIN = inch/2
+
+ACCENT = (196/255, 34/255, 51/255)
+
+
 import json
 #https://www.reportlab.com/docs/reportlab-userguide.pdf
 
@@ -35,14 +39,43 @@ def header(c:canvas.Canvas, info:dict):
     c.drawCentredString(WIDTH/2,HEIGHT-(inch*1.25),contact)
     #canvas.drawRightString(x, y, text), drawString(x, y, text)
     
+
 '''
 add skills section, starting from top
 '''
 def skills(c:canvas.Canvas, info:dict, top:float):
     c.setFont("Helvetica-Bold", 12)
     #header - left - red - line below
-    c.setFillColorRGB(196/255, 34/255, 51/255)
-    c.drawString(MARGIN, top-inch/4, "Skills")
+    r, g, b = ACCENT
+    c.setFillColorRGB(r, g, b)
+    c.setStrokeColorRGB(r, g, b)
+    c.drawString(MARGIN, top-MARGIN/4, "Skills")
+    c.line(MARGIN,top-inch/6,WIDTH-MARGIN,top-inch/6)
+
+    #software development - black - bold
+    c.setFillColorRGB(0, 0, 0)
+    c.setFont("Helvetica-Bold", 11)
+    c.drawString(MARGIN+inch/4, top-inch/3, "Software Development")
+
+    #proficient
+    c.setFont("Helvetica", 9)
+    c.drawString(MARGIN+inch/2, top-inch/2, "Proficient: ")
+    skills = ", ".join(info["Skills"]["Software Development"]["Proficient"])
+    c.drawRightString(WIDTH-MARGIN, top-inch/2, skills)
+
+    #familiar
+    c.drawString(MARGIN+inch/2, top-inch/1.5, "Familiar: ")
+    skills = ", ".join(info["Skills"]["Software Development"]["Familiar"])
+    c.drawRightString(WIDTH-MARGIN, top-inch/1.5, skills)
+
+    #other - black - bold
+    c.setFont("Helvetica-Bold", 11)
+    c.drawString(MARGIN+inch/4, top-inch/1.2, "Other")
+
+    #other skills list - small
+    c.setFont("Helvetica", 9)
+    skills = ", ".join(info["Skills"]["Other"])
+    c.drawRightString(WIDTH-MARGIN, top-inch/1.2, skills)
 
 
 '''
@@ -67,8 +100,5 @@ if __name__ == '__main__':
 
 
 '''
-c.setStrokeColorRGB(0.2,0.5,0.3)
-c.setFillColorRGB(1,0,1)
-# draw some lines
 c.line(0,0,0,1.7*inch)
 '''
