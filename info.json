@@ -10,7 +10,7 @@
     "Skills": {
         "Software Development":{
             "Proficient":["Python", "C++","Java", "JavaScript", "React.js", "Bootstrap", "HTML", "CSS", "jQuery", "Processing", "p5.js"],
-            "Familiar" : ["NodeJS", "C#", "Selenium", "Express", "AWS", "GTest", "Web Crawling", "MongoDB", "Heroku", "Unity3D"]
+            "Familiar" : ["NodeJS", "C#", "Selenium", "Express","Figma","AWS", "GTest", "Web Crawling", "MongoDB", "Heroku"]
         },
         "Other": ["Git/Github", "Agile", "Photoshop", "Linux", "UI/UX Design", "VirtualBox", "Arduino", "3D Printing"]
     },
@@ -65,6 +65,7 @@
             "position": "Software Engineering Intern",
             "start": "Jan 2021",
             "end": "Present",
+            "location":"Los Gatos, CA",
             "description": [
                 "Producing clean, efficient code based on user stories and integrated software components",
                 "Authoring automated unit, integration, and system tests",
@@ -76,6 +77,7 @@
             "position": "Project Committee Member",
             "start": "Nov 2020",
             "end": "Present",
+            "location":"Irvine, CA",
             "description": [
                 "Working to develop online solutions tailored to aid UCI students to improve student experience",
                 "Rebuilding and redesigning zotistics website from ground up in React"
@@ -86,6 +88,7 @@
             "position": "Web Design/UX Intern",
             "start": "Sep 2020",
             "end": "Dec 2020",
+            "location":"Remote",
             "description": [
                 " Managed website interface, pitching and implementing ideas to better design, code, and modify the site",
                 "Created visually appealing site features for user-friendly design and clear navigation",
@@ -97,6 +100,7 @@
             "position": "Computer Science Instructor",
             "start": "Apr 2020",
             "end": "Present",
+            "location":"Remote",
             "description": [
                 "Taught computer science concepts at various levels in Processing and Java to 60+ students",
                 "Communicated with operations staff on optimizing problem sets to emphasize learning and retention",
@@ -108,6 +112,7 @@
             "position": "Vice President",
             "start": "Aug 2017",
             "end": "May 2019",
+            "location":"San Jose, CA",
             "description": [
                 "Grew MESA(Mathematics Engineering Science Achievement) by over 40% from 50+ to 80+ members",
                 "Lead club to best year to date, winning over 72% of all prizes, with 90% of members winning"
