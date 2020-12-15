@@ -1,6 +1,6 @@
 {
     "Info":{
-        "name": "Daniel Binoy",
+        "name": ["Daniel", "Binoy"],
         "phone-number": "(669) 377-5085",
         "site": "www.binoy.co",
         "email": "dbinoy15@gmail.com",

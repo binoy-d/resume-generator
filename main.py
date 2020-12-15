@@ -10,7 +10,7 @@ import json
 LIGHT = True
 DARK = False
 
-MODE = DARK
+MODE = LIGHT
 
 
 RED = (196, 34, 51)
@@ -69,9 +69,12 @@ def header(c:canvas.Canvas, info:dict, top=HEIGHT-MARGIN)->float:
     setColor(c, TEXT)
     top-=inch/3
     c.setFont("Helvetica-Bold", 20)
-    c.drawCentredString(WIDTH/2,top, info["Info"]["name"])
-    x1 = (WIDTH - c.stringWidth(info["Info"]["name"]))/2
-    x2 = (WIDTH + c.stringWidth(info["Info"]["name"]))/2
+    c.drawRightString(WIDTH/2-2,top, info["Info"]["name"][0]) #first
+    setColor(c, ACCENT)
+    c.drawString(WIDTH/2+2, top, info["Info"]["name"][1]) #last
+
+    x1 = WIDTH/2 - c.stringWidth(info["Info"]["name"][0])
+    x2 = WIDTH/2 + c.stringWidth(info["Info"]["name"][1])
     c.linkURL("https://"+info["Info"]["site"],(x1,top,x2,top+20))
 
     #contact info - center below name
@@ -321,7 +324,7 @@ def create_pdf(filename:str, info:dict)->None:
 def main():
     info = loadInfo("./info.json")
     print("loaded info for ", info["Info"]["name"])
-    create_pdf("./hello.pdf", info)
+    create_pdf("./resume.pdf", info)
 
 if __name__ == '__main__':
     main()
