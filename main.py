@@ -13,8 +13,7 @@ MARGIN = inch/2
 '''
 sets the theme lol
 '''
-def getTheme(info:dict) -> dict:
-    theme = info["Theme"]
+def getTheme(theme:dict) -> dict:
     if theme["mode"] == "light":
         back = [int(i) for i in theme["light"].split(",")]
         front = [int(i) for i in theme["dark"].split(",")]
@@ -321,13 +320,15 @@ def create_pdf(filename:str, info:dict, theme:dict)->None:
 def main():
     print(sys.argv)
     info = loadInfo("./info.json")
-    theme = getTheme(info)
-
     if len(sys.argv)>=2:
-        theme["mode"] = sys.argv[1] #'light' or 'dark'
-    print(theme["mode"])
+        info["Theme"]["mode"] = sys.argv[1] #'light' or 'dark'
+
+    theme = getTheme(info["Theme"])
+
+   
+    
     print("loaded info for ", info["Info"]["name"])
-    create_pdf("./public/resume.pdf", info, theme)
+    create_pdf("./resume.pdf", info, theme)
     print("done")
 
 if __name__ == '__main__':
