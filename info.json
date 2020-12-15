@@ -119,7 +119,20 @@
         "graduation": "Dec 2021",
         "degree": "BS, Computer Science",
         "gpa": "3.7" 
-    }
+    },
+    "Certifications":[
+        {
+            "certifier":"LinkedIn",
+            "certifications": [
+                "Python for Automation",
+                "React.js",
+                "Python Skill Test",
+                "Java Skill Test",
+                "HTML Skill Test",
+                "CSS Skill Test"
+            ]
+        }
+    ]
 
 
 

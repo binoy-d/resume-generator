@@ -1,8 +1,8 @@
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
-from reportlab.lib.pagesizes import A4
+from reportlab.lib.pagesizes import letter
 
-WIDTH, HEIGHT = A4
+WIDTH, HEIGHT = letter
 MARGIN = inch/2
 
 ACCENT = (196/255, 34/255, 51/255)
@@ -178,6 +178,37 @@ def education(c:canvas.Canvas, info:dict, top:float):
 
 
 
+'''
+adds certifications with certifier, list of certs 
+returns new bottom
+'''
+def certifications(c:canvas.Canvas, info:dict, top:float):
+    #header - left - red - line below
+    c.setFont("Helvetica-Bold", 12)
+    r, g, b = ACCENT
+    c.setFillColorRGB(r, g, b)
+    c.setStrokeColorRGB(r, g, b)
+    top-=MARGIN/4
+    c.drawString(MARGIN, top, "Certifications")
+    top-=inch/12
+    c.line(MARGIN,top,WIDTH-MARGIN,top)
+    
+    
+    
+    c.setFillColorRGB(0, 0, 0)
+    for cert in info["Certifications"]:
+        #certifier - bold, black
+        top-=inch/6
+        c.setFont("Helvetica-Bold", 10)
+        c.drawString(MARGIN+inch/4, top, cert["certifier"])
+
+        #list of certs - small
+        c.setFont("Helvetica", 9)
+        certs = ', '.join(cert["certifications"])
+        c.drawRightString(WIDTH-MARGIN, top, certs)
+
+    return top-inch/12
+
 
 
 
@@ -186,15 +217,14 @@ using info from info dict, assembles and writes pdf
 '''
 def create_pdf(filename:str, info:dict)->None:
     
-    c = canvas.Canvas(filename, pagesize = A4)
+    c = canvas.Canvas(filename, pagesize = letter)
     bottom = header(c, info)    
     bottom = skills(c, info, bottom)
-    
     bottom = experience(c, info, bottom)
     bottom = education(c, info, bottom)
     bottom = projects(c, info, bottom)
-    
-    
+    bottom = certifications(c, info, bottom)
+    print(bottom)
     c.showPage()
     c.save()
 
