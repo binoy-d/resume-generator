@@ -17,7 +17,7 @@
     "Projects":[
         {
             "name":"Portfolio Website",
-            "link":"https://binoy.co",
+            "link":"binoy.co",
             "description":[
                 "Created a responsive personal portfolio website, featuring projects and more about me",
                 "Used React, Bootstrap, HTML, JavaScript, and CSS for dynamic content through custom components",
@@ -26,11 +26,36 @@
         },
         {
             "name":"Blog App",
-            "link":"https://binoy.co",
+            "link":"github.com/binoy-d/react-blog-app",
             "description":[
                 "Created full stack blog app where users can read articles, as well as upvote and leave comments",
                 "Hosted on AWS EC2 server with backend written in NodeJS and Express",
                 "Front end written with ReactJS, using MongoDB to store comments and upvotes"
+            ]
+        },
+        {
+            "name":"UCI Web Search Engine",
+            "link":"github.com/binoy-d/uci-ics-search-engine",
+            "description":[
+                "Wrote search engine from ground up in Python capable of handling tens of thousands of documents",
+                "Runs under harsh operational constraints with query response time under 300ms",
+                "Incorporates tf-idf, contextual relevance ranking, tokenization, and stop word handling"
+            ]
+        },
+        {
+            "name":"3D Music Visualizer",
+            "link":"binoy-d.github.io/spiral-orbit/",
+            "description":[
+                "Built bezier-based 3d generative music visualizer using p5.js and webgl",
+                "Generates complex visuals that react to mouse, keyboard, and microphone input"
+            ]
+        },
+        {
+            "name":"Bubbles Together",
+            "link":"bubbles-together.herokuapp.com/",
+            "description":[
+                "Utilized p5.js to create shared drawing experience with particle effects",
+                " Deployed app using Heroku with NodeJS, Express, and SocketIO for backend"
             ]
         }
     ]
