@@ -5,7 +5,7 @@ from reportlab import platypus
 from  reportlab.lib.styles import ParagraphStyle as PS
 from reportlab.platypus import SimpleDocTemplate
 import json
-
+import sys
 
 WIDTH, HEIGHT = letter
 MARGIN = inch/2
@@ -303,7 +303,6 @@ def background(c, theme):
 using info from info dict, assembles and writes pdf
 '''
 def create_pdf(filename:str, info:dict, theme:dict)->None:
-    
     c = canvas.Canvas(filename, pagesize = letter)
     background(c, theme)
     bottom = header(c, info, theme)    
@@ -320,15 +319,17 @@ def create_pdf(filename:str, info:dict, theme:dict)->None:
 
 
 def main():
+    print(sys.argv)
     info = loadInfo("./info.json")
     theme = getTheme(info)
+
+    if len(sys.argv)>=2:
+        theme["mode"] = sys.argv[1] #'light' or 'dark'
+    print(theme["mode"])
     print("loaded info for ", info["Info"]["name"])
-    create_pdf("./resume.pdf", info, theme)
+    create_pdf("./public/resume.pdf", info, theme)
+    print("done")
 
 if __name__ == '__main__':
     main()
 
-
-'''
-c.line(0,0,0,1.7*inch)
-'''
