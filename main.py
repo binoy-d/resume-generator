@@ -91,21 +91,91 @@ def projects(c:canvas.Canvas, info:dict, top:float):
     r, g, b = ACCENT
     c.setFillColorRGB(r, g, b)
     c.setStrokeColorRGB(r, g, b)
-    c.drawString(MARGIN, top-MARGIN/4, "Projects")
-    c.line(MARGIN,top-inch/6,WIDTH-MARGIN,top-inch/6)
-    top-=inch/3
+    top-=MARGIN/4
+    c.drawString(MARGIN, top, "Projects")
+    top-=inch/12
+    c.line(MARGIN,top,WIDTH-MARGIN,top)
+
+    #each project
+    top-=inch/6
     for project in info["Projects"]:
-        #software development - black - bold
+        #project name
         c.setFillColorRGB(0, 0, 0)
         c.setFont("Helvetica-Bold", 10)
-        top-=inch/40
         c.drawString(MARGIN+inch/4, top, project["name"])
         c.setFont("Helvetica", 9)
-        top-=inch/6
+        
+        #description
         for line in project["description"]:
-            c.drawString(MARGIN+inch/3, top,"• "+line)
             top-=inch/6
-    return top
+            c.drawString(MARGIN+inch/3, top,"• "+line)
+        top-=inch/6
+    return top+inch/20
+
+'''
+adds experience with position, company, descripton, dates
+returns new bottom
+'''
+def experience(c:canvas.Canvas, info:dict, top:float):
+    #header - left - red - line below
+    c.setFont("Helvetica-Bold", 12)
+    r, g, b = ACCENT
+    c.setFillColorRGB(r, g, b)
+    c.setStrokeColorRGB(r, g, b)
+    top-=MARGIN/4
+    c.drawString(MARGIN, top, "Experience")
+    top-=inch/12
+    c.line(MARGIN,top,WIDTH-MARGIN,top)
+
+    #each project
+    top-=inch/6
+    for xp in info["Experience"]:
+        #project name
+        c.setFillColorRGB(0, 0, 0)
+        c.setFont("Helvetica-Bold", 10)
+        c.drawString(MARGIN+inch/4, top, xp["position"])
+        c.setFont("Helvetica", 9)
+        
+        #description
+        for line in xp["description"]:
+            top-=inch/6
+            c.drawString(MARGIN+inch/3, top,"• "+line)
+        top-=inch/6
+    return top+inch/20
+
+
+'''
+adds education with university, major, gpa, expected grad 
+returns new bottom
+'''
+def education(c:canvas.Canvas, info:dict, top:float):
+    #header - left - red - line below
+    c.setFont("Helvetica-Bold", 12)
+    r, g, b = ACCENT
+    c.setFillColorRGB(r, g, b)
+    c.setStrokeColorRGB(r, g, b)
+    top-=MARGIN/4
+    c.drawString(MARGIN, top, "Education")
+    top-=inch/12
+    c.line(MARGIN,top,WIDTH-MARGIN,top)
+    
+    #university name - bold, black
+    top-=inch/6
+    c.setFillColorRGB(0, 0, 0)
+    c.setFont("Helvetica-Bold", 10)
+    c.drawString(MARGIN+inch/4, top, info["Education"]["school"])
+    
+    #expected grad - bold
+    c.drawRightString(WIDTH-MARGIN, top, "Expected Graduation: "+info["Education"]["graduation"])
+
+    #major, gpa - small
+    c.setFont("Helvetica", 9)
+    top-=inch/6
+    c.drawString(MARGIN+inch/3, top, info["Education"]["degree"]+" | "+info["Education"]["gpa"])
+    
+    return top-inch/12
+
+
 
 
 
@@ -119,6 +189,9 @@ def create_pdf(filename:str, info:dict)->None:
     c = canvas.Canvas(filename, pagesize = A4)
     bottom = header(c, info)    
     bottom = skills(c, info, bottom)
+    
+    bottom = experience(c, info, bottom)
+    bottom = education(c, info, bottom)
     bottom = projects(c, info, bottom)
     
     

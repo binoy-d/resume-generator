@@ -113,7 +113,13 @@
                 "Lead club to best year to date, winning over 72% of all prizes, with 90% of members winning"
             ]
         }
-    ]
+    ],
+    "Education":{
+        "school": "University of California, Irvine",
+        "graduation": "Dec 2021",
+        "degree": "BS, Computer Science",
+        "gpa": "3.7" 
+    }
 
 
 
