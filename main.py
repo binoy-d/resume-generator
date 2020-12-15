@@ -81,6 +81,10 @@ def skills(c:canvas.Canvas, info:dict, top:float)->float:
 
     return top-inch/1.1 #the new bottom
 
+'''
+adds projects with name, descripton, link
+returns new bottom
+'''
 def projects(c:canvas.Canvas, info:dict, top:float):
     #header - left - red - line below
     c.setFont("Helvetica-Bold", 12)
@@ -89,15 +93,19 @@ def projects(c:canvas.Canvas, info:dict, top:float):
     c.setStrokeColorRGB(r, g, b)
     c.drawString(MARGIN, top-MARGIN/4, "Projects")
     c.line(MARGIN,top-inch/6,WIDTH-MARGIN,top-inch/6)
-    
+    top-=inch/3
     for project in info["Projects"]:
         #software development - black - bold
         c.setFillColorRGB(0, 0, 0)
-        c.setFont("Helvetica-Bold", 11)
-        c.drawString(MARGIN+inch/4, top-inch/3, project["name"])
-        top-=inch/3
-
-    return 0
+        c.setFont("Helvetica-Bold", 10)
+        top-=inch/40
+        c.drawString(MARGIN+inch/4, top, project["name"])
+        c.setFont("Helvetica", 9)
+        top-=inch/6
+        for line in project["description"]:
+            c.drawString(MARGIN+inch/3, top,"• "+line)
+            top-=inch/6
+    return top
 
 
 
@@ -110,6 +118,8 @@ def create_pdf(filename:str, info:dict)->None:
     bottom = header(c, info)    
     bottom = skills(c, info, bottom)
     bottom = projects(c, info, bottom)
+    
+    
     c.showPage()
     c.save()
 
