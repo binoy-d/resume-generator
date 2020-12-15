@@ -18,7 +18,20 @@ adds header with name, links, and contact info
 '''
 def header(c:canvas.Canvas, info:dict):
     width, height = A4
-    c.drawString(width/2,height-inch, info["Info"]["name"])
+    c.setFont("Helvetica-Bold", 20)
+    #name
+    c.drawCentredString(width/2,height-inch, info["Info"]["name"])
+    
+    #smaller font
+    c.setFont("Helvetica", 10)
+    #linkedin - left
+    c.drawString(inch/2, height-inch/2, info["Info"]["linkedin"])
+
+    #github - right
+    c.drawRightString(width-inch/2, height-inch/2, info["Info"]["github"])
+
+    #canvas.drawRightString(x, y, text), drawString(x, y, text)
+    
 
 
 '''
@@ -27,6 +40,14 @@ using info from info dict, assembles and writes pdf
 def create_pdf(filename:str, info:dict)->None:
     
     c = canvas.Canvas(filename, pagesize = A4)
+    c.setFont("Helvetica", 14)
+
+    '''
+    c.setStrokeColorRGB(0.2,0.5,0.3)
+    c.setFillColorRGB(1,0,1)
+    # draw some lines
+    c.line(0,0,0,1.7*inch)
+    '''
     header(c, info)    
     c.showPage()
     c.save()
